@@ -6,11 +6,17 @@ interface StyleProps {
   theme: DefaultTheme;
   mb?: boolean;
   mt?: boolean;
+  align?: 'center' | 'right' | 'justify' | 'left';
 }
 
 export const DisplayText = styled.h1`
   font-family: ${({ theme }) => theme.fonts.display};
   font-size: ${({ extraLarge }: StyleProps) => (extraLarge ? '98px' : '69px')};
+  ${({ theme, contrast }: StyleProps) =>
+    contrast
+      ? `color: ${theme.palette.terracotta.terra};`
+      : `color: ${theme.palette.terracotta.main};`}
+  ${({ align }) => (align ? `text-align: ${align}` : '')}
 `;
 
 export const BodyText = styled.p`

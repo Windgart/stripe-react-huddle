@@ -1,0 +1,15 @@
+mutation CreatePaymentMethod($payload: PaymentMethodInput!) {
+  createPaymentMethod(payload: $payload) {
+    data {
+      methodId
+    }
+  }
+}
+
+mutation CreatePaymentIntent($payload: PaymentIntentInput!) {
+  createPaymentIntent(payload: $payload) {
+    data {
+      clientSecret
+    }
+  }
+}

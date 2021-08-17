@@ -6,6 +6,7 @@ interface ThemePalette {
   abisso: string;
   terra: string;
   aqua: string;
+  abanero: string;
 }
 
 declare module 'styled-components' {

@@ -1,0 +1,10 @@
+query getCatList {
+  catsList {
+    id
+    name
+    picture
+    description
+    displayPrice
+    chargePrice
+  }
+}

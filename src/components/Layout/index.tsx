@@ -1,5 +1,5 @@
 import { ReactNode, FC } from 'react';
-import { LayoutWrapper, GlobalContainer, Content } from './styles';
+import { LayoutWrapper, GlobalContainer } from './styles';
 import Footer from './Footer';
 import Header from './Header';
 

@@ -9,7 +9,8 @@ const theme = {
       secondary: '#cdb380',
       abisso: '#031634',
       terra: '#e8ddcb',
-      aqua: '#033649',
+      aqua: '#25D21A',
+      abanero: '#fc0330',
     },
   },
   fonts: {

@@ -1,7 +1,9 @@
-import styled from 'styled-components';
+import styled, { DefaultTheme } from 'styled-components';
 
 interface StyleProps {
   iconClass?: string;
+  isEmpty?: boolean;
+  theme: DefaultTheme;
 }
 
 export const Container = styled.div`
@@ -18,6 +20,7 @@ export const ShoppingCartIcon = styled.i.attrs(() => ({
   color: ${({ theme }) => theme.palette.terracotta.terra};
   font-size: 25px;
   margin: 0 7px;
+  cursor: pointer;
 `;
 
 export const Circle = styled.div`
@@ -30,6 +33,8 @@ export const Circle = styled.div`
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.palette.terracotta.terra};
-  color: ${({ theme }) => theme.palette.terracotta.main};
+  background-color: ${({ theme, isEmpty }: StyleProps) =>
+    !isEmpty ? theme.palette.terracotta.terra : '#fc0330'};
+  color: ${({ theme, isEmpty }: StyleProps) =>
+    !isEmpty ? theme.palette.terracotta.main : 'white'};
 `;

@@ -4,19 +4,31 @@ import theme from './theme';
 import Layout from 'components/Layout';
 import Routing from 'routing';
 import { BrowserRouter } from 'react-router-dom';
-import { RouteWrapper } from 'components/Styled/containers';
+import { ApolloProvider } from '@apollo/client';
+import client from 'Apollo/config';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_API_KEY || '');
 
 function App() {
   return (
     <>
-      <StyleProvider />
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <Layout>
-            <Routing />
-          </Layout>
-        </BrowserRouter>
-      </ThemeProvider>
+      <ApolloProvider client={client}>
+        <StyleProvider />
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <Elements stripe={stripePromise}>
+              <Layout>
+                <ToastContainer />
+                <Routing />
+              </Layout>
+            </Elements>
+          </BrowserRouter>
+        </ThemeProvider>
+      </ApolloProvider>
     </>
   );
 }
