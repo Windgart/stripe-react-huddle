@@ -16,10 +16,11 @@ import {
 } from 'components/Styled';
 import { useStripe } from '@stripe/react-stripe-js';
 import { useHistory } from 'react-router-dom';
-import { resetCart, resetTransaction } from 'Apollo/reactiveVars/mutators';
 
 interface FormProps {
   paymentIntent: string;
+  reset: () => void;
+  toast: (message: string, type: 'success' | 'error' | 'warning') => void;
 }
 
 interface FormValues {
@@ -30,7 +31,7 @@ interface FormValues {
   cvc: number;
 }
 
-const CustomForm: FC<FormProps> = ({ paymentIntent }) => {
+const CustomForm: FC<FormProps> = ({ paymentIntent, reset, toast }) => {
   const h = useHistory();
   const [loadingPayment, setLoadingPayment] = useState<boolean>(false);
   const stripe = useStripe();
@@ -51,8 +52,7 @@ const CustomForm: FC<FormProps> = ({ paymentIntent }) => {
         shootToast('something went wrong :c', 'error');
       } else {
         setLoadingPayment(false);
-        resetTransaction();
-        resetCart();
+        reset();
         h.push('/thankyou');
       }
     }

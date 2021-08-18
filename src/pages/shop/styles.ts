@@ -1,27 +1,10 @@
 import styled from 'styled-components';
 
 interface StyleProps {
-  reversed?: boolean;
   large?: boolean;
   selected?: boolean;
   mt?: boolean;
 }
-
-export const Container = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const ShopContainers = styled.div`
-  display: flex;
-  width: ${({ reversed }: StyleProps) => (reversed ? '30%' : '70%')};
-
-  justify-content: center;
-  flex-wrap: wrap;
-`;
 
 export const CardWrapper = styled.div`
   width: 220px;

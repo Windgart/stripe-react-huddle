@@ -7,7 +7,6 @@ import {
   CardCvcElement,
 } from '@stripe/react-stripe-js';
 import {
-  PaymentRequest,
   StripeCardCvcElementChangeEvent,
   StripeCardExpiryElementChangeEvent,
   StripeCardNumberElementChangeEvent,
@@ -18,21 +17,20 @@ import {
   Title2,
   Separator,
   Button,
-  Input,
   PseudoInput,
 } from 'components/Styled';
 import theme from 'theme';
 import { useHistory } from 'react-router-dom';
-import shootToast from 'utils/shootToast';
-import { resetCart, resetTransaction } from 'Apollo/reactiveVars/mutators';
 
 type ElementStatus = 'empty' | 'error' | 'completed';
 
 interface FormProps {
   paymentIntent?: string;
+  reset: () => void;
+  toast: (message: string, type: 'success' | 'error' | 'warning') => void;
 }
 
-const MixComponent: FC<FormProps> = ({ paymentIntent }) => {
+const MixComponent: FC<FormProps> = ({ paymentIntent, reset, toast }) => {
   const [cardNumberStatus, setCardNumberStatus] =
     useState<ElementStatus>('empty');
   const [loadingPayment, setLoadingPayment] = useState<boolean>(false);
@@ -77,7 +75,7 @@ const MixComponent: FC<FormProps> = ({ paymentIntent }) => {
     placeholder: '000',
   };
 
-  const handleSumbmit = async () => {
+  const handleSubmit = async () => {
     setLoadingPayment(true);
     if (stripe && cardRef && paymentIntent) {
       const payload = await stripe.confirmCardPayment(paymentIntent, {
@@ -86,10 +84,9 @@ const MixComponent: FC<FormProps> = ({ paymentIntent }) => {
         },
       });
       if (payload.error) {
-        shootToast('Could not pay with that card 😿', 'error');
+        toast('Could not pay with that card 😿', 'error');
       } else {
-        resetCart();
-        resetTransaction();
+        reset();
         h.push('/thankyou');
       }
     }
@@ -149,7 +146,7 @@ const MixComponent: FC<FormProps> = ({ paymentIntent }) => {
       </StandardContainer>
       <StandardContainer spacedY direction="row" justify="flex-end">
         <Button
-          onClick={handleSumbmit}
+          onClick={handleSubmit}
           disabled={loadingPayment}
           color="secondary"
         >
