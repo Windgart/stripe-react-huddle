@@ -91,19 +91,19 @@ const Checkout: FC = () => {
           <Button onClick={handlePayment} disabled={loading} color="secondary">
             {loading ? 'Wait' : 'Do the payment'}
           </Button> */}
-          {/* ------using your own custom form
-           */}
-          {/* ----using a mix approach----- */}
+          {/* ------using your own custom form---  */}
           <CustomForm
             reset={resetAll}
             toast={shootToast}
             paymentIntent={paymentIntent}
           />
+          {/* ----using a mix approach----- 
           <MixForm
             reset={resetAll}
             toast={shootToast}
             paymentIntent={paymentIntent}
           />
+          */}
         </BasicCard>
       </SectionsContainers>
     </StandardContainer>
